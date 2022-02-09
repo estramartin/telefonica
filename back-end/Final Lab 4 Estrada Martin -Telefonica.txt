@@ -1,0 +1,34 @@
+Servicios de telefonía
+
+Realizar un programa que permita administrar una empresa que brinda servicios de telefonía.
+
+Requerimientos:
+
+administrar (altas, bajas, modificaciones, listado con búsqueda) datos de
+
+clientes: nombre, direccion, sexo, edad, telefonos, lista de linea-equipo-plan
+
+equipos: marca, modelo, fecha ingreso, estado (preventa, en sucursal, vendido, descompuesto)
+
+líneas: numero, estado (pendiente, activada, bloqueada)
+
+línea-equipo-plan: asociación entre una línea y un equipo, a través de un plan. línea, equipo, plan, fecha inicio, fecha fin, costo por mes
+
+planes: nombre, cantidad de llamadas, cant de sms, cant de gigas, tipo (prepago/tarjeta), costo por mes
+
+consultas
+
+clientes activos (con una linea activa) en una determinada fecha
+
+equipos activos (asociados a una linea activa) en una determinada fecha
+
+ficha de cliente: datos personales y datos de las líneas que posee con sus equipos y planes asociados
+
+
+Acorde a lo que dimos en clase, las tecnologías a usar son las siguientes:
+
+Backend: FastAPI
+
+Frontend: React
+
+BD: PostgreSql
