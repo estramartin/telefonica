@@ -1,5 +1,6 @@
 
 from datetime import date
+from sqlalchemy import func
 from sqlalchemy.orm.session import Session
 from Models.clientes_model import ClientesModel, Clientes
 from Models.liena_equipo_plan_model import LienaEquipoPlan
@@ -11,7 +12,7 @@ from sqlalchemy.sql.expression import select
 
 class ClientesRepositorio():
     def get_all_clientes(self, session:Session):
-        return session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(LienaEquipoPlan).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).all()
+        return session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(LienaEquipoPlan).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).order_by(Clientes.nombre).all()
 
     def get_one_cliente_lista(self, linea:int, session:Session):
         cliente = session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(LienaEquipoPlan).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).where(Clientes.lista_l_e_p == linea).all()
@@ -65,8 +66,20 @@ class ClientesRepositorio():
         return cliente
     
     def actived_clientes_date(self, fecha:date, session:Session):
-        cleintes_activos= session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(LienaEquipoPlan).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).where(Linea.estado == 'activada' ).where(LienaEquipoPlan.fecha_inicio <=fecha).all()
-        return cleintes_activos
+      return session.query(Clientes.nombre, Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).select_from(LienaEquipoPlan).join(Linea).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).where(Linea.estado == 'activada' ).where(LienaEquipoPlan.fecha_inicio <=fecha).group_by(Clientes.nombre,Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).all()
+        
+        # cleintes_activos= session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(LienaEquipoPlan).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).where(Linea.estado == 'activada' ).where(LienaEquipoPlan.fecha_inicio <=fecha).all()
+        # return cleintes_activos
 
-    
+    # def actived_clientes_date(self, fecha:date, session:Session):
+    #     cleintes_activos= session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(LienaEquipoPlan).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).where(Linea.estado == 'activada' ).where(LienaEquipoPlan.fecha_inicio <=fecha).all()
+    #     return cleintes_activos
+
+
+    def get_clientes_count(self, session:Session):
+        return session.query(Clientes.nombre, Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).group_by(Clientes.nombre,Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).all()
+
+
    
+    def get_lineas_libres(self, session:Session):
+       return  session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(Clientes).join(LienaEquipoPlan, full=True).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == None).order_by(Linea.numero).all()

@@ -10,7 +10,7 @@ class PLanesRepositorio():
         return session.execute(select(Planes)).scalars().all() 
 
     def get_one_plan(self, nombre:str , session: Session):
-        plan = session.execute(select(Planes).where(Planes.nombre==nombre)).scalar()
+        plan = session.execute(select(Planes).where(Planes.nombre.ilike(f"%{nombre}%"))).scalars().all()
         if(plan):
             return plan
         else:

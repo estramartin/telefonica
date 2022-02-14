@@ -54,3 +54,31 @@ def get_actived_equipos(fecha:date, session:Session=Depends(get_session)):
         return repo.get_actived_equipos(fecha,session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
+
+
+
+@linea_eqipo_plan_router.get('/lieas-disponibles/')
+def get_lineas_libres(session:Session=Depends(get_session)):
+    try:
+        return repo.get_lineas_libres(session)
+
+    except Exception as er:
+       raise HTTPException(status_code=500, detail= f'algo falló en la carga de datos {er.args}',)
+
+
+
+@linea_eqipo_plan_router.get('/equipos-disponibles/{numero}')
+def get_equipos_libres(numero: int, session:Session=Depends(get_session)):
+    try:
+        return repo.get_equipos_libres(numero, session)
+
+    except Exception as er:
+       raise HTTPException(status_code=500, detail= f'algo falló en la carga de datos {er.args}',)
+
+@linea_eqipo_plan_router.get('/equipos-lineas-planes-disponibles/')
+def get_lep_libres(session:Session=Depends(get_session)):
+    try:
+        return repo.get_lep_libres(session)
+
+    except Exception as er:
+       raise HTTPException(status_code=500, detail= f'algo falló en la carga de datos {er.args}',)

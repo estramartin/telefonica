@@ -1,5 +1,7 @@
 
+from datetime import date
 from pydantic import BaseModel
+from sqlalchemy import Date
 from sqlalchemy.types import BigInteger, Integer
 from sqlalchemy.orm import backref, relationship
 from sqlalchemy.sql.schema import ForeignKey
@@ -13,7 +15,7 @@ class Clientes(Base):
     nombre = Column(String(50), nullable=False)
     direccion = Column(String(100), nullable=False)
     sexo = Column(String(12) )
-    edad = Column(Integer(), nullable=False)
+    edad = Column(Date(), nullable=False)
     telefonos = Column(BigInteger())
     lista_l_e_p = Column(BigInteger(), ForeignKey('linea_equipo_plan.linea'),primary_key=True)
 
@@ -27,7 +29,7 @@ class ClientesModel(BaseModel):
     nombre: str
     direccion:str
     sexo:str
-    edad: int
+    edad: date
     telefonos: int
     lista_l_e_p: int 
   

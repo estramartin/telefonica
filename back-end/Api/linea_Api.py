@@ -28,6 +28,15 @@ def get_one_linea(numero:int, session:Session = Depends(get_session)):
     except Exception as er:
         raise HTTPException(status_code=500, detail = er.args)
 
+@linea_router.get('/estado/{estado}')
+def get_one_linea_by_estado(estado:str, session:Session = Depends(get_session)):
+    try:
+        return repo.get_one_linea_by_estado(estado, session)
+
+    except Exception as er:
+        raise HTTPException(status_code=500, detail = er.args)
+
+
 @linea_router.delete('/{numero}')
 def delete_linea(numero:int, session:Session= Depends(get_session)):
     try:

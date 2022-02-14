@@ -5,12 +5,13 @@ from sqlalchemy.sql.sqltypes import Date, String, Integer
 from DataBase import Base
 from sqlalchemy.schema import Column
 
+
 class Equipo(Base):
     __tablename__ = 'equipo'
     codigo = Column(Integer(), primary_key=True, autoincrement=True )
     marca = Column(String(50), nullable= False)
     modelo = Column(String(50), nullable=False)
-    fecha_ingreso = Column(Date(), default= datetime.now(), nullable=False)
+    fecha_ingreso = Column(Date(), nullable=False)
     estado = Column(String(50), nullable=False)
     
 

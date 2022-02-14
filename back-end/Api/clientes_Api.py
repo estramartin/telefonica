@@ -61,3 +61,17 @@ def actived_clientes_date(fecha_inicio:date, session:Session= Depends(get_sessio
 
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
+
+@clientes_router.get('/datos-clientes/')
+def get_clientes_count(session:Session= Depends(get_session)):
+    try:
+        return repo.get_clientes_count(session)
+    except Exception as er:
+        raise HTTPException(status_code=500, detail= er.args)
+
+@clientes_router.get('/lineas-libres/')
+def get_lineas_libres(session:Session= Depends(get_session)):
+    try:
+        return repo.get_lineas_libres(session)
+    except Exception as er:
+        raise HTTPException(status_code=500, detail= er.args)

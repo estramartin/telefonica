@@ -17,6 +17,13 @@ class LineaRepositorio():
         else:
             raise Exception('Linea no encotrado')
 
+    def get_one_linea_by_estado(self, estado: str, session: Session):
+        linea = session.query(Linea).filter(Linea.estado.ilike(f'%{estado}%') ).all()
+        if(linea):
+            return linea
+        else:
+            raise Exception('Linea no encotrado')
+
     def delete_linea(self, numero :int, session:Session):
         linea = session.get(Linea, numero)
         if linea:
@@ -41,3 +48,5 @@ class LineaRepositorio():
             return linea
         else:
             raise Exception("Elemento no encotrado")
+
+   

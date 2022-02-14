@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Optional,Any
 from pydantic import BaseModel
-from sqlalchemy import Float
+from sqlalchemy import Float, null
 from sqlalchemy.types import BigInteger
 from sqlalchemy.orm import backref, relationship
 from sqlalchemy.sql.schema import ForeignKey
@@ -14,9 +14,9 @@ class LienaEquipoPlan(Base):
     linea =Column(BigInteger(), ForeignKey('linea.numero'), primary_key=True)
     equipo = Column(Integer(), ForeignKey('equipo.codigo'), nullable=False)
     plan = Column(String(50), ForeignKey('planes.nombre'), nullable=False)
-    fecha_inicio = Column(Date(), default=datetime.now(), nullable=False)
-    fecha_fin = Column(Date())
-    costo = Column(Float(), nullable=False)
+    fecha_inicio = Column(Date(), nullable=False)
+    fecha_fin = Column(Date(),nullable=True ,  default= None)
+    costo = Column(Float())
 
     fk_linea = relationship("Linea", backref=backref('linea_numero'), foreign_keys=[linea])
     fk_equipo = relationship("Equipo", backref=backref('equipo_codigo'), foreign_keys=[equipo])
@@ -33,7 +33,7 @@ class LienaEquipoPlanModel(BaseModel):
     plan : str
     fecha_inicio : date
     fecha_fin : Optional[date]
-    costo : float
+    costo : Optional[float]
 
     class Coinfg:
         orm_mode = True

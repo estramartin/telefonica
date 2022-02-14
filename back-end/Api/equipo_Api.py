@@ -18,6 +18,14 @@ def get_all_equipos(session: Session= Depends(get_session)):
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
 
+
+@equipo_router.get('/codigo/{codigo}')
+def get_one_equipo_codigo(codigo:int, session:Session = Depends(get_session)):
+    try:
+        return repo.get_one_equipo_codigo(codigo, session)
+    except Exception as er:
+        raise HTTPException(status_code=500, detail=er.args)
+
 @equipo_router.get('/{marca}')
 def get_one_equipo_marca(marca:str, session: Session= Depends(get_session)):
     try:
