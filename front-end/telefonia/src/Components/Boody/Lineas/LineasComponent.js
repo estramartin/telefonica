@@ -44,9 +44,13 @@ const LineasComponent=()=>{
 
     const EliminarLinea=(numero)=>{
 
-        axios.delete(`http://127.0.0.1:8000/linea/${numero}`).then(()=>{
+        axios.delete(`http://127.0.0.1:8000/linea/${numero}`).then((response)=>{
         TraerLineas();
         alert('Linea Eliminada')
+
+        }).catch(err=>{
+
+            alert(`No se puede eliminar porque ${err.response.data.detail}` )
 
         })
 

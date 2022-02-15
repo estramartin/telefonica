@@ -43,21 +43,27 @@ const ClientesComponent = () => {
       })
 
     }
-    else{
-    TraerClientes();
+    else {
+      TraerClientes();
     }
   }
 
 
   useEffect(() => { TraerClientes() }, [])
- 
+
 
   return (<>
     <h1>Lista de Clientes</h1>
     <button className="btn btn-primary" onClick={() => { navigate("/clientes/agregar") }}>Agregar Cliente</button>
+    <div className="row">
+      <div className="col-3">
+        <Buscador tipo="date" mensaje="Buscar por Fecha" busqueda={busqueda} setBusqueda={setBusqueda} listar={ListarBusqueda} />
+      </div>
+      <div className="col-2 mt-4">
+        <button className="btn btn-primary" onClick={() => { TraerClientes() }}>Todos</button>
+      </div>
+    </div>
 
-    <Buscador tipo="date" mensaje="Buscar por Fecha" busqueda={busqueda} setBusqueda={setBusqueda} listar={ListarBusqueda} />
-    <button className="btn btn-primary" onClick={()=>{TraerClientes()}}>Todos</button>
     <div>
 
       <table className="table table-striped">
@@ -74,7 +80,7 @@ const ClientesComponent = () => {
         <tbody>
 
           {clientes.map((cliente, index) => {
-            { return <Cliente key={index} cliente={cliente} /> }
+            return (<Cliente key={index} cliente={cliente} />)
           })
           }
 

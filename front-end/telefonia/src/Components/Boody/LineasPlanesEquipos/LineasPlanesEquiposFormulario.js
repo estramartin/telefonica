@@ -7,7 +7,7 @@ import axios from "axios";
 const LineasPlanesEquiposFormulario = () => {
     const navigate = useNavigate()
     const { pel } = useParams()
-    
+
 
     const [equipos, setEquipos] = useState([])
     const [lineas, setLineas] = useState([])
@@ -25,24 +25,11 @@ const LineasPlanesEquiposFormulario = () => {
 
     const TraerPlanes = async () => {
 
-        
-            await axios.get('http://127.0.0.1:8000/planes/').then((response) => {
 
-                setPlanes(response.data)
+        await axios.get('http://127.0.0.1:8000/planes/').then((response) => {
 
-            }).catch((er) => {
+            setPlanes(response.data)
 
-                alert(er.response.data.detail)
-            })
-
-    }
-
-    const TraerLineas =async () => {
-
-        await axios.get('http://127.0.0.1:8000/linea-equipo-plan/lieas-disponibles/').then((response) => {
-
-            setLineas(response.data);
-           
         }).catch((er) => {
 
             alert(er.response.data.detail)
@@ -50,33 +37,46 @@ const LineasPlanesEquiposFormulario = () => {
 
     }
 
-    const TraerEquipos  =async () => {
+    const TraerLineas = async () => {
 
-        
-        if(pel){
-            await axios.get(`http://127.0.0.1:8000/linea-equipo-plan/equipos-disponibles/${pel}`).then((response) => {
-    
-          setEquipos(response.data)
-         
-        }).catch((err) => {
-    
-          alert(err.response.data.detail)
+        await axios.get('http://127.0.0.1:8000/linea-equipo-plan/lieas-disponibles/').then((response) => {
+
+            setLineas(response.data);
+
+        }).catch((er) => {
+
+            alert(er.response.data.detail)
         })
-        }
-        else{
 
-            await   axios.get(`http://127.0.0.1:8000/linea-equipo-plan/equipos-disponibles/${0}`).then((response) => {
-    
+    }
+
+    const TraerEquipos = async () => {
+
+
+        if (pel) {
+            await axios.get(`http://127.0.0.1:8000/linea-equipo-plan/equipos-disponibles/${pel}`).then((response) => {
+
                 setEquipos(response.data)
-               
-              }).catch((err) => {
-          
-                alert(err.response.data.detail)
-              })
-        }
-      }
 
-   
+            }).catch((err) => {
+
+                alert(err.response.data.detail)
+            })
+        }
+        else {
+
+            await axios.get(`http://127.0.0.1:8000/linea-equipo-plan/equipos-disponibles/${0}`).then((response) => {
+
+                setEquipos(response.data)
+
+            }).catch((err) => {
+
+                alert(err.response.data.detail)
+            })
+        }
+    }
+
+
     const NuevoPlanEquipoLinea = () => {
         return ({
             linea: linea,
@@ -88,7 +88,7 @@ const LineasPlanesEquiposFormulario = () => {
         })
     }
 
-    
+
 
     const CargarPlanEquipoLinea = () => {
 
@@ -117,105 +117,103 @@ const LineasPlanesEquiposFormulario = () => {
             alert(er.response.data.detail)
         })
     }
-   
-    const Lep=(pel)=>{
 
-        if(pel){
+    const Lep = (pel) => {
 
-          return  <input  disabled onChange={(e) => { CambioEnFormulario(e.target) }} type="text" name="linea" value={linea} className="form-control form-control-lg m-2 w-25" placeholder="ej: Perez Luis Alberto" />
+        if (pel) {
 
-        }else{
+            return <input disabled onChange={(e) => { CambioEnFormulario(e.target) }} type="text" name="linea" value={linea} className="form-control form-control-lg m-2 w-25" placeholder="ej: Perez Luis Alberto" />
 
-            return(
-                           
-            <select onChange={(e) => CambioEnFormulario(e.target)} className="form-select w-50 m-2" name='linea' value={linea} aria-label="Default select example">
-            <option hidden defaultValue="prepago">Seleccione una linea</option>
-            {lineas.map((linea1, index) => { 
-              return <option key={index} value={linea1.numero}>{linea1.numero}</option> 
-            })}
-            </select>
+        } else {
+
+            return (
+
+                <select onChange={(e) => CambioEnFormulario(e.target)} className="form-select w-25 m-2" name='linea' value={linea} aria-label="Default select example">
+                    <option hidden defaultValue="prepago">Seleccione una linea</option>
+                    {lineas.map((linea1, index) => {
+                        return <option key={index} value={linea1.numero}>{linea1.numero}</option>
+                    })}
+                </select>
             )
 
         }
 
 
     }
-    
+
 
     useEffect(() => {
-            //NuevoPlanEquipoLinea();
+        //NuevoPlanEquipoLinea();
         if (pel) {
-             axios.get(`http://127.0.0.1:8000/linea-equipo-plan/${pel}`).then((response) => {
+            axios.get(`http://127.0.0.1:8000/linea-equipo-plan/${pel}`).then((response) => {
 
                 setLineasEquiposPlanes(response.data[0].LienaEquipoPlan);
-                TraerEquipos();
                 TraerPlanes();
-                
-                
+
+
             }).catch((er) => {
 
                 alert(er.response.data.detail)
             }
 
             )
-        }else{        
+        } else {
             TraerLineas();
-            TraerEquipos();
-            TraerPlanes();          
-        }   
-        
-      
+            TraerPlanes();
+        }
+        TraerEquipos();
+
     }, [pel])
 
-    
-    
+
+
     const CambioEnFormulario = (e) => {
 
         setLineasEquiposPlanes({ ...lineasEquiposPlanes, [e.name]: e.value })
 
-    }   
+    }
     return (
         <>
             <h1>Formulario Lineas-Planes-Equipos</h1>
+            <div className="ms-5">
+                {/* Linea */}
+                <label className="ms-3 mt-5"><h5>Linea</h5></label>
+                {Lep(pel)}
 
-            {/* Linea */}
-            <label className="ms-3">Linea</label>
-            {Lep(pel)}           
-         
-            {/* Equipo */}
-            <label className="ms-3">Equipo</label>
-            <select onChange={(e) => CambioEnFormulario(e.target)} className="form-select w-50 m-2" name='equipo' value={equipo} aria-label="Default select example">
-                <option hidden>Seleccione un equipo</option>
-                {equipos.map(equipo1 => {
-                                                      
-                            { return <option key={equipo1.codigo} value={equipo1.codigo}>{equipo1.marca}  {equipo1.modelo}</option> }
-                    
+                {/* Equipo */}
+                <label className="ms-3 mt-3"><h5>Equipo</h5></label>
+                <select onChange={(e) => CambioEnFormulario(e.target)} className="form-select w-25 m-2" name='equipo' value={equipo} aria-label="Default select example">
+                    <option hidden>Seleccione un equipo</option>
+                    {equipos.map(equipo1 => {
+
+                        return (<option key={equipo1.codigo} value={equipo1.codigo}>{equipo1.marca}  {equipo1.modelo}</option>)
+
                     })}
-            </select>
+                </select>
 
-             {/* Plan */}        
-            <label className="ms-3">Plan</label>
-            <select onChange={(e) => CambioEnFormulario(e.target)} className="form-select w-50 m-2" name='plan' value={plan} aria-label="Default select example">
-                <option hidden defaultValue="prepago">Seleccione un plan</option>
-                {planes.map(plan => {
-                        { return <option key={plan.nombre} value={plan.nombre}>{plan.nombre}</option> }
+                {/* Plan */}
+                <label className="ms-3 mt-3"> <h5>Plan</h5></label>
+                <select onChange={(e) => CambioEnFormulario(e.target)} className="form-select w-25 m-2" name='plan' value={plan} aria-label="Default select example">
+                    <option hidden defaultValue="prepago">Seleccione un plan</option>
+                    {planes.map(plan => {
+                        return (<option key={plan.nombre} value={plan.nombre}>{plan.nombre}</option>)
                     })}
-            </select>
-            
-            {/* Fecha Inicio */}  
-            <label className="ms-3">Fecha Inicio</label>
-            <input onChange={(e) => { CambioEnFormulario(e.target) }} type="date" name="fecha_inicio" value={fecha_inicio} className="form-control form-control-lg m-2 w-25" placeholder="ej: 2022-02-23" />
-                  
-            {/* Fecha Fin */}  
-            <label className="ms-3">Fecha Fin</label>
-             <input onChange={(e) => { CambioEnFormulario(e.target) }} type="date" defaultValue={null} name="fecha_fin" min={fecha_inicio} value={fecha_fin} className="form-control form-control-lg m-2 w-25" placeholder="ej: 2022-12-24" />
+                </select>
 
-           
-            <button onClick={() => { pel ? EditarPlanEquipoLinea() : CargarPlanEquipoLinea() }} className="btn btn-primary m-3">{pel ? 'Editar' : 'Agregar'}</button>
-            <button onClick={() => { navigate('/planes-equipos-lineas') }} className="btn btn-danger m-3">Cancelar</button>
+                {/* Fecha Inicio */}
+                <label className="ms-3 mt-3"><h5>Fecha Inicio</h5></label>
+                <input onChange={(e) => { CambioEnFormulario(e.target) }} type="date" name="fecha_inicio" value={fecha_inicio} className="form-control form-control-lg m-2 w-25" placeholder="ej: 2022-02-23" />
+
+                {/* Fecha Fin */}
+                <label className="ms-3 mt-3"><h5>Fecha Fin</h5></label>
+                <input onChange={(e) => { CambioEnFormulario(e.target) }} type="date" defaultValue={null} name="fecha_fin" min={fecha_inicio} value={fecha_fin} className="form-control form-control-lg m-2 w-25" placeholder="ej: 2022-12-24" />
 
 
+                <button onClick={() => { pel ? EditarPlanEquipoLinea() : CargarPlanEquipoLinea() }} className="btn btn-primary m-3">{pel ? 'Editar' : 'Agregar'}</button>
+                <button onClick={() => { navigate('/planes-equipos-lineas') }} className="btn btn-danger m-3">Cancelar</button>
 
+
+            </div>
 
 
         </>

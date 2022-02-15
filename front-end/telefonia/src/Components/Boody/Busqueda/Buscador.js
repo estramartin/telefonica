@@ -6,12 +6,12 @@ const Buscador =(props)=>{
     
     return(
     <>
-    <div >
+    <div className="row" >
                 
-            <div className="bloque mt-4">
+            <div className="col-6 mt-4">
                 
                 
-                <input  type={props.tipo}  className="input form-control w-25 " 
+                <input  type={props.tipo}  className="input form-control w-100 " 
                 placeholder={props.mensaje}
                 name ='busqueda'
                 onKeyPress={(e)=>e.charCode ===13 && props.listar()}
@@ -19,13 +19,14 @@ const Buscador =(props)=>{
                 onChange={(e)=>props.setBusqueda(e.target.value)}
                 required
                 />
-                  
+              </div>   
+              <div className="col-6">     
                  
                 
-                 <button className="boton-buscar btn btn-primary mt-2" onClick={()=>props.listar()}> BUSCAR</button>    
+                 <button className="boton-buscar btn btn-primary ps-5 pe-5 mt-4" onClick={()=>props.listar()}> Buscar</button>    
                 
-    
-            </div>     
+                 </div>
+             
             </div>         
     </>
     )

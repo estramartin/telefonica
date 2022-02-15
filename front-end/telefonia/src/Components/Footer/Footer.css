@@ -1,0 +1,50 @@
+
+#footer{
+
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(69, 118, 176) ;
+    height: 200px;
+    padding-bottom: 100px;
+}
+
+
+#content{
+
+background-color: rgb(69, 118, 176) ;
+
+
+
+}
+
+
+
+
+
+.title{
+    color: white;   
+
+}
+
+#content .tecnologias{
+    
+    width: 80px;
+    transition: all 300ms;  
+    position: absolute;  
+    
+
+}
+#content #html{
+
+    width: 70px;
+    
+    }
+
+#content .tecnologias:hover,
+#content #html:hover{
+
+width: 100px;
+cursor: pointer;
+
+
+}

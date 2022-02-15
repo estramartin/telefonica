@@ -12,6 +12,12 @@ session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
+SQLALCHEMY_ENGINE_OPTIONS = {
+    "max_overflow": 40,
+    "pool_pre_ping": True,
+    "pool_recycle": 60 * 60,
+    "pool_size": 30,
+}
 
 def Drop_all():
     Base.metadata.drop_all(bind = engine)

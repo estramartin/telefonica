@@ -7,7 +7,7 @@ const OtraLinea = () => {
 
     const { idnombre } = useParams();
     const navigate = useNavigate();
-    const [nuevaLinea, setNuevaLinea] = useState(0);
+    // const [nuevaLinea, setNuevaLinea] = useState(0);
     const [lineasDisponibles, setLineasDisponibles]= useState([]);
     const [cliente, setCliente] = useState({
         direccion: '',
@@ -74,7 +74,7 @@ const OtraLinea = () => {
         })
 
 
-    }, [])
+    }, [idnombre])
 
     const CambioEnFormulario=(e)=>{
 
@@ -85,18 +85,18 @@ const OtraLinea = () => {
     return (
         <>
             <h1>Asociar otra Linea a {nombre}</h1>
+            <div className="ms-5 mt-5">
+                <label  className="ms-3"><h5>Asociar Linea</h5></label>
+                    <select  onChange={(e) => CambioEnFormulario(e.target)} className="form-select w-50 m-2" name='lista_l_e_p' value={lista_l_e_p} aria-label="Default select example">
+                    <option hidden>Lineas</option>
+                    {lineasDisponibles.map((lineas) => { 
+                    return <option key={lineas.LienaEquipoPlan.linea} value={lineas.LienaEquipoPlan.linea}>{lineas.Equipo.marca} {lineas.Equipo.modelo} --- Plan: {lineas.LienaEquipoPlan.plan}: ${lineas.Planes.costo} --- Numero: {lineas.LienaEquipoPlan.linea}  </option> 
+                    })}                             
+                </select>
 
-            <label  className="ms-3">Asociar Linea</label>
-                <select  onChange={(e) => CambioEnFormulario(e.target)} className="form-select w-25 m-2" name='lista_l_e_p' value={lista_l_e_p} aria-label="Default select example">
-                <option hidden>Lineas</option>
-                {lineasDisponibles.map((lineas) => { 
-                   return <option key={lineas.LienaEquipoPlan.linea} value={lineas.LienaEquipoPlan.linea}>{lineas.Equipo.marca} {lineas.Equipo.modelo} --- Plan: {lineas.LienaEquipoPlan.plan}: ${lineas.Planes.costo} --- Numero: {lineas.LienaEquipoPlan.linea}  </option> 
-                })}                             
-            </select>
-
-            <button onClick={() => {AgregarCliente()}} className="btn btn-primary m-3">{'Agregar'}</button>
-            <button onClick={() => { navigate('/clientes') }} className="btn btn-danger m-3">Cancelar</button>
-
+                <button onClick={() => {AgregarCliente()}} className="btn btn-primary m-3">{'Agregar'}</button>
+                <button onClick={() => { navigate('/clientes') }} className="btn btn-danger m-3">Cancelar</button>
+            </div>
 
         </>
     )

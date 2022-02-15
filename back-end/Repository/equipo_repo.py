@@ -7,7 +7,7 @@ format_data = "%d/%m/%Y"
 
 class EquipoRepositorio:
       def get_all_equipos(self, session:Session):
-        return session.execute(select(Equipo)).scalars().all() 
+        return session.execute(select(Equipo).order_by(Equipo.marca)).scalars().all() 
 
       def get_one_equipo_codigo(self, codigo:int ,session:Session):
         equipo = session.execute(select(Equipo).where(Equipo.codigo == codigo)).scalar()

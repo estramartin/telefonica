@@ -23,18 +23,22 @@ import EquipoFormulario from './Components/Boody/Equipos/EquiposFormulario';
 const RouterContent = () => {
     return (
         <BrowserRouter>
-
+           
             <Header />
-
-            <nav className="bg bg-warning">
-                <Link className="btn btn-primary m-3" to="inicio">Inicio</Link>
-                <Link className="btn btn-primary m-3" to="lineas">Lineas</Link>
-                <Link className="btn btn-primary m-3" to="planes">Planes</Link>
-                <Link className="btn btn-primary m-3" to="equipos">Equipos</Link>
-                <Link className="btn btn-primary m-3" to="planes-equipos-lineas" >Lineas-Planes-Equipos</Link>
-                <Link className="btn btn-primary m-3" to="clientes" >Clientes</Link>
+            <div className='row'>
+                <div className='col-2 bg bg-secondary'>
+            <nav id="barra-lateral" className="bg bg-secondary">
+                <Link className="boton btn btn-primary m-3" to="inicio">Inicio</Link>
+                <Link className="boton btn btn-primary m-3" to="lineas">Lineas</Link>
+                <Link className="boton btn btn-primary m-3" to="planes">Planes</Link>
+                <Link className="boton btn btn-primary m-3" to="equipos">Equipos</Link>
+                <Link className="boton btn btn-primary m-3" to="planes-equipos-lineas" >Lineas-Planes-Equipos</Link>
+                <Link className="boton btn btn-primary m-3" to="clientes" >Clientes</Link>
             </nav>
+            </div>
 
+            <div className='col-10'>
+           
 
             <Routes>
 
@@ -65,8 +69,8 @@ const RouterContent = () => {
                 <Route path="/equipos/agregar" exact element={<EquipoFormulario />} />
                 <Route path="/equipos/agregar/:equipoid" exact element={<EquipoFormulario />} />
             </Routes>
-
-
+            </div>
+            </div>
 
             <Footer />
 

@@ -28,9 +28,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-
-
 # db.Drop_all()
 # db.create_all()
 

@@ -11,12 +11,12 @@ const LineasPlanesEquiposComponenet = () => {
 
   const [lineaEquipoPlan, setLineaEquipoPlan] = useState([])
 
-  const [busqueda, setBusqueda] =useState('')
+  const [busqueda, setBusqueda] = useState('')
 
   const TraerLineasEquiposPlanes = () => {
 
     axios.get('http://127.0.0.1:8000/linea-equipo-plan/').then((response) => {
-     
+
       setLineaEquipoPlan(response.data)
     }).catch(err => {
 
@@ -37,32 +37,32 @@ const LineasPlanesEquiposComponenet = () => {
     })
   }
 
-  const ListarBusqueda=()=>{
-    if(busqueda){
-      
-        axios.get(`http://127.0.0.1:8000/linea-equipo-plan/fecha/${busqueda}`).then((response) => {
-                  
-                  setLineaEquipoPlan(response.data);
-                  console.log(response.data)
+  const ListarBusqueda = () => {
+    if (busqueda) {
 
-            })
-            .catch((error) => {
+      axios.get(`http://127.0.0.1:8000/linea-equipo-plan/fecha/${busqueda}`).then((response) => {
 
-                console.log(error.response.data.detail);
+        setLineaEquipoPlan(response.data);
+        
 
-            });
-        }
-        else{
-          TraerLineasEquiposPlanes();
-        }
+      })
+        .catch((error) => {
+
+          console.log(error.response.data.detail);
+
+        });
+    }
+    else {
+      TraerLineasEquiposPlanes();
+    }
 
 
-}
+  }
 
 
   useEffect(() => { TraerLineasEquiposPlanes() }, [])
-  useEffect(()=>{ListarBusqueda()},[]);
-  
+
+
   return (<>
 
     <h1>Lista de LineasPlanesEquipos</h1>
@@ -70,15 +70,22 @@ const LineasPlanesEquiposComponenet = () => {
     <div>
       <button className="btn btn-primary" onClick={() => { navigate('/planes-equipos-lineas/agregar') }}>Agregar linea-equipo-plan</button>
       <div className="row">
+      <div className="col-3">
+        <Buscador tipo="date" mensaje="Buscar por Fecha" busqueda={busqueda} setBusqueda={setBusqueda} listar={ListarBusqueda} />
+      </div>
+      <div className="col-2 mt-4">
+        <button className="btn btn-primary" onClick={() => { TraerLineasEquiposPlanes() }}>Todos</button>
+      </div>
+    </div>
+
+
+
+
+      {/* <div className="row">
         <div className="col-5">
-          <Buscador mensaje="Buscar por Fecha" tipo="date" listar ={ListarBusqueda} setBusqueda ={setBusqueda} busqueda = {busqueda}/>
-      {/* <input type="date"  className="form-control form-control-lg m-2 w-100" placeholder="ej: 2022-02-23" /> */}
-      </div>
-      {/* <div className="col-5 mt-2">
-      <button className="btn btn-primary p-2" onClick={() => { navigate('/planes-equipos-lineas/agregar') }}>Buscar</button>
-     
+          <Buscador mensaje="Buscar por Fecha" tipo="date" listar={ListarBusqueda} setBusqueda={setBusqueda} busqueda={busqueda} />
+        </div>
       </div> */}
-      </div>
       <div>
 
         <table className="table table-striped">
@@ -99,8 +106,8 @@ const LineasPlanesEquiposComponenet = () => {
           <tbody>
 
             {lineaEquipoPlan.map((lep) => {
-               
-               {return <LienaPlanEquipo key={lep.Linea.numero} lep={lep} ElimiarLineaEquipoPlan={ElimiarLineaEquipoPlan} />}
+
+               return (<LienaPlanEquipo key={lep.Linea.numero} lep={lep} ElimiarLineaEquipoPlan={ElimiarLineaEquipoPlan} />) 
             })
             }
 

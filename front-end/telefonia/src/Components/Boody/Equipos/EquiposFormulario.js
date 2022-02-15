@@ -78,17 +78,17 @@ const EquipoFormulario =()=>{
 
     return(
         <>
-            <h1>Formulario Equipos</h1>
-            <div>
-                <label className="ms-3">Marca</label>
-                <input type="text" onChange={(e)=>{CambioEnFormulario(e.target)}} name="marca" value={marca} className="form-control form-control-lg m-2" placeholder="Ej: Nokia"/>
-                <label className="ms-3">Modelo</label>
-                <input type="text" onChange={(e)=>{CambioEnFormulario(e.target)}} name="modelo" value={modelo} className="form-control form-control-lg m-2" placeholder="Ej: 1100"/>
-                <label className="ms-3">Fecha de ingreso</label>
-                <input type="date" onChange={(e)=>{CambioEnFormulario(e.target)}} name="fecha_ingreso" value={fecha_ingreso} className="form-control form-control-lg m-2" placeholder="Ej: 2022-02-21" />
+            <h1>Agregar Equipos</h1>
+            <div className="ms-5">
+                <label className="ms-3 mt-5"><h5>Marca</h5></label>
+                <input type="text" onChange={(e)=>{CambioEnFormulario(e.target)}} name="marca" value={marca} className="form-control form-control-lg m-2 w-50" placeholder="Ej: Nokia"/>
+                <label className="ms-3 mt-3"><h5>Modelo</h5></label>
+                <input type="text" onChange={(e)=>{CambioEnFormulario(e.target)}} name="modelo" value={modelo} className="form-control form-control-lg m-2 w-50" placeholder="Ej: 1100"/>
+                <label className="ms-3 mt-3"><h5>Fecha de ingreso</h5></label>
+                <input type="date" onChange={(e)=>{CambioEnFormulario(e.target)}} name="fecha_ingreso" value={fecha_ingreso} className="form-control form-control-lg m-2 w-25" placeholder="Ej: 2022-02-21" />
 
-                <label className="ms-3">Estado</label>
-                <select  onChange={(e)=>{CambioEnFormulario(e.target)}}  name="estado" value={estado} className="form-select w-50 m-2" aria-label="Default select example">
+                <label className="ms-3 mt-3"><h5>Estado</h5></label>
+                <select  onChange={(e)=>{CambioEnFormulario(e.target)}}  name="estado" value={estado} className="form-select w-25 m-2" aria-label="Default select example">
                     <option hidden>Seleccione un tipo</option>
                     <option value="preventa">Preventa</option>  
                     <option value="en sucursal">En Sucursal</option>  

@@ -41,8 +41,8 @@ const EquiposComponent = () => {
    if(busqueda){
    
     axios.get(`http://127.0.0.1:8000/equipo/${busqueda}`).then((response)=>{
-      const nuevo =response.data
-      setEequipos(nuevo)
+      
+      setEequipos(response.data)
       
     }).catch((er)=>{
 
@@ -57,9 +57,9 @@ const EquiposComponent = () => {
 
   
   useEffect(() => { TraerEquipos() }, [])
-  useEffect(() => { ListarBusqueda()}, [])
+ 
   return (<>
-    <div className="pt-5 pb-5">
+    <div className=" pb-5">
       <h1>Lista de Equipos</h1>
       <button onClick={() => { navigate('/equipos/agregar') }} className="btn btn-primary">Agregar Equipo</button>
 

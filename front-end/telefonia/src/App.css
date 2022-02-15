@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+
+#barra-lateral{
+padding-top: 100px;
+
+}
+
+#imagen{
+
+margin-right: 300px;
+  
+}
+
+#barra-lateral .boton{
+border: 1px solid black;
+width: 250px;
+
+}
