@@ -18,6 +18,8 @@ def get_all_lineas(session: Session= Depends(get_session)):
         return repo.get_all_lineas(session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
+    finally:
+        session.close()
 
 @linea_router.get('/{numero}')
 def get_one_linea(numero:int, session:Session = Depends(get_session)):
@@ -26,7 +28,8 @@ def get_one_linea(numero:int, session:Session = Depends(get_session)):
 
     except Exception as er:
         raise HTTPException(status_code=500, detail = er.args)
-
+    finally:
+        session.close()
 @linea_router.get('/estado/{estado}')
 def get_one_linea_by_estado(estado:str, session:Session = Depends(get_session)):
     try:
@@ -34,6 +37,8 @@ def get_one_linea_by_estado(estado:str, session:Session = Depends(get_session)):
 
     except Exception as er:
         raise HTTPException(status_code=500, detail = er.args)
+    finally:
+            session.close()
 
 @linea_router.delete('/{numero}')
 def delete_linea(numero:int, session:Session= Depends(get_session)):
@@ -42,6 +47,8 @@ def delete_linea(numero:int, session:Session= Depends(get_session)):
 
     except Exception as er:
         raise HTTPException(status_code=500, detail = er.args)
+    finally:
+        session.close()
 
 @linea_router.post('/')
 def post_new_linea(datos: LineaModel, session:Session= Depends(get_session)):
@@ -49,6 +56,8 @@ def post_new_linea(datos: LineaModel, session:Session= Depends(get_session)):
         return repo.post_new_linea(datos, session)
     except Exception as er:
         raise HTTPException(status_code=500, detail = er.args)
+    finally:
+        session.close()
 
 @linea_router.put('/{numero}')
 def update_linea(numero:int, datos: LineaModel, session:Session=Depends(get_session)):
@@ -56,4 +65,5 @@ def update_linea(numero:int, datos: LineaModel, session:Session=Depends(get_sess
          return repo.update_linea(numero,datos,session)
     except Exception as er:
         raise HTTPException(status_code=500, detail = er.args)
-   
+    finally:
+            session.close()

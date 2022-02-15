@@ -17,6 +17,8 @@ def get_all_planes(session: Session= Depends(get_session)):
         return repo.get_all_planes(session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
+    finally:
+        session.close()
 
 @planes_router.get('/{nombre}')
 def get_one_plan(nombre:str, session:Session=Depends(get_session)):
@@ -24,6 +26,8 @@ def get_one_plan(nombre:str, session:Session=Depends(get_session)):
         return repo.get_one_plan(nombre, session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
+    finally:
+        session.close()
 
 @planes_router.delete('/{nombre}')
 def delete_plan(nombre: str, session:Session = Depends(get_session)):
@@ -31,6 +35,8 @@ def delete_plan(nombre: str, session:Session = Depends(get_session)):
         return repo.delete_plan(nombre, session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
+    finally:
+        session.close()
 
 @planes_router.post('/')
 def post_new_plan(datos: PlanesModel, session:Session=Depends(get_session)):
@@ -38,11 +44,14 @@ def post_new_plan(datos: PlanesModel, session:Session=Depends(get_session)):
       return repo.post_new_plan(datos, session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
- 
+    finally:
+        session.close()
+
 @planes_router.put('/{nombre}')
 def update_plan(nombre: str, datos:PlanesModel, session: Session = Depends(get_session)):
     try:
         return repo.update_plan(nombre, datos, session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
-        
+    finally:
+        session.close()        

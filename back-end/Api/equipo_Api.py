@@ -17,6 +17,8 @@ def get_all_equipos(session: Session= Depends(get_session)):
         return repo.get_all_equipos(session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
+    finally:
+        session.close()
 
 @equipo_router.get('/codigo/{codigo}')
 def get_one_equipo_codigo(codigo:int, session:Session = Depends(get_session)):
@@ -24,6 +26,8 @@ def get_one_equipo_codigo(codigo:int, session:Session = Depends(get_session)):
         return repo.get_one_equipo_codigo(codigo, session)
     except Exception as er:
         raise HTTPException(status_code=500, detail=er.args)
+    finally:
+        session.close()
 
 @equipo_router.get('/{marca}')
 def get_one_equipo_marca(marca:str, session: Session= Depends(get_session)):
@@ -31,6 +35,8 @@ def get_one_equipo_marca(marca:str, session: Session= Depends(get_session)):
         return repo.get_one_equipo_marca(marca,session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
+    finally:
+        session.close()
 
 @equipo_router.get('/modelo/{modelo}')
 def get_one_equipo_modelo(modelo:str, session: Session= Depends(get_session)):
@@ -38,6 +44,8 @@ def get_one_equipo_modelo(modelo:str, session: Session= Depends(get_session)):
         return repo.get_one_equipo_modelo(modelo, session)
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
+    finally:
+        session.close()
 
 @equipo_router.delete('/delete/{codigo}')
 def delete_equipo(codigo:int, session:Session= Depends(get_session) ):
@@ -45,6 +53,8 @@ def delete_equipo(codigo:int, session:Session= Depends(get_session) ):
        return repo.delete_equipo(codigo, session)
     except Exception as er:
          raise HTTPException(status_code=500, detail= er.args)
+    finally:
+        session.close()
 
 @equipo_router.post('/')
 def post_new_equipo(datos: EquipoModel, session:Session = Depends(get_session)):
@@ -53,6 +63,8 @@ def post_new_equipo(datos: EquipoModel, session:Session = Depends(get_session)):
         return repo.post_new_equipo(datos, session)
     except Exception as er:
          raise HTTPException(status_code=500, detail= er.args)
+    finally:
+        session.close()
 
 @equipo_router.put('/{codigo}')
 def update_equipo(codigo: int, datos: EquipoModel, session:Session=Depends(get_session)):
@@ -60,4 +72,5 @@ def update_equipo(codigo: int, datos: EquipoModel, session:Session=Depends(get_s
        return repo.update_equipo(codigo, datos,session)
     except Exception as er:
          raise HTTPException(status_code=500, detail= er.args)
-
+    finally:
+        session.close()
