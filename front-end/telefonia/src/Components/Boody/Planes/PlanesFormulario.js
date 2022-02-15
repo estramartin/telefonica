@@ -43,7 +43,7 @@ const PlanesFormulario = () => {
             alert('Plan agregado correctamente')
         }).catch((err) => {
 
-            alert(err.response.data.detail)
+            alert( `Error al agregar el plan: ${err.response.data.detail}`)
         })
     }
 
@@ -54,7 +54,7 @@ const PlanesFormulario = () => {
             alert('Plan editado correctamente')
         }).catch((err) => {
 
-            alert(err.response.data.detail)
+            alert( `Error al editar el plan: ${err.response.data.detail}`)
         })
 
     }

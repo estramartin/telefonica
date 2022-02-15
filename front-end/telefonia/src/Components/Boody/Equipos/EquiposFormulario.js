@@ -38,9 +38,9 @@ const EquipoFormulario =()=>{
         navigate('/equipos');
         alert('Equipo agregado correctamente')
 
-        }).catch((er)=>{
+        }).catch((err)=>{
 
-            alert(er.response.data.detail)
+            alert( `Error al agregar el Equipo: ${err.response.data.detail}`)
         })
 
     }
@@ -52,7 +52,10 @@ const EquipoFormulario =()=>{
         axios.put(`http://127.0.0.1:8000/equipo/${equipoid}`,nuevo).then((response)=>{
             navigate('/equipos');
             setEquipos(response.data)
+            alert('Equipo editado correctamente')
+        }).catch((err)=>{
 
+            alert( `Error al editar el Equipo: ${err.response.data.detail}`)
         })
 
 

@@ -30,7 +30,6 @@ class EquipoRepositorio:
         else:
           raise Exception('Equipo no encontrado')
 
-
       def delete_equipo(self, codigo:int, session:Session):
         equipo = session.get(Equipo, codigo)
         if equipo:

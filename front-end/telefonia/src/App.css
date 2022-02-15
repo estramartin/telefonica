@@ -40,6 +40,7 @@
 
 #barra-lateral{
 padding-top: 100px;
+padding-bottom: 100px;
 
 }
 
@@ -52,5 +53,32 @@ margin-right: 300px;
 #barra-lateral .boton{
 border: 1px solid black;
 width: 250px;
+
+}
+
+/*Responsive*/
+/*desde 0px hasta 888px habrá estos estilos*/
+@media(max-width: 1823px){
+  #barra-lateral{
+    width: 100px;
+    
+    }
+
+
+  #barra-lateral .boton{
+    
+    width: 150px;
+    
+    }
+
+}
+
+@media(max-width: 1147px){
+
+  #barra-lateral .boton{
+    
+    width: 100px;
+    
+    }
 
 }

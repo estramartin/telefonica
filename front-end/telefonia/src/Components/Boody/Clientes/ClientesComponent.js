@@ -79,8 +79,10 @@ const ClientesComponent = () => {
         </thead>
         <tbody>
 
-          {clientes.map((cliente, index) => {
-            return (<Cliente key={index} cliente={cliente} />)
+          {clientes.map((cliente) => {
+            console.log(cliente)
+            return (<Cliente key={cliente.nombre} cliente={cliente} />)
+            
           })
           }
 

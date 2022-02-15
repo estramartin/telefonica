@@ -68,18 +68,8 @@ class ClientesRepositorio():
     def actived_clientes_date(self, fecha:date, session:Session):
       return session.query(Clientes.nombre, Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).select_from(LienaEquipoPlan).join(Linea).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).where(Linea.estado == 'activada' ).where(LienaEquipoPlan.fecha_inicio <=fecha).group_by(Clientes.nombre,Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).all()
         
-        # cleintes_activos= session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(LienaEquipoPlan).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).where(Linea.estado == 'activada' ).where(LienaEquipoPlan.fecha_inicio <=fecha).all()
-        # return cleintes_activos
-
-    # def actived_clientes_date(self, fecha:date, session:Session):
-    #     cleintes_activos= session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(LienaEquipoPlan).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).where(Linea.estado == 'activada' ).where(LienaEquipoPlan.fecha_inicio <=fecha).all()
-    #     return cleintes_activos
-
-
     def get_clientes_count(self, session:Session):
-        return session.query(Clientes.nombre, Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).group_by(Clientes.nombre,Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).all()
-
-
+        return session.query(Clientes.nombre, Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).group_by(Clientes.nombre,Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).order_by(Clientes.nombre).all()
    
     def get_lineas_libres(self, session:Session):
        return  session.query(Clientes,LienaEquipoPlan,Equipo, Linea, Planes).select_from(Clientes).join(LienaEquipoPlan, full=True).join(Equipo).join(Linea).join(Planes).where(Clientes.lista_l_e_p == None).order_by(Linea.numero).all()

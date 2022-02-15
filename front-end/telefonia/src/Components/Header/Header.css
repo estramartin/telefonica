@@ -44,3 +44,52 @@ color: white;
 
 }
 
+
+/*Responsive*/
+/*desde 0px hasta 888px habrá estos estilos*/
+@media(max-width: 1823px){
+
+    #titulo{
+        padding-top: 160px;
+        
+     }
+     
+     #nombre{ 
+     
+     font-size: 30px;
+     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     color: white;
+     margin-right: 2px;
+     }
+
+     #logo img{
+        margin: 15px;
+        width: 150px;
+    }
+
+}
+
+@media(max-width: 1690px){
+
+    #titulo{
+        padding-top: 160px;
+        
+     }
+     
+     #nombre{ 
+     
+     font-size: 30px;
+     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     color: white;
+     margin-right: 2px;
+     }
+
+     #logo img{
+        margin: 15px;
+        width: 150px;
+    }
+
+}
+
+   
+    

@@ -29,7 +29,7 @@ const LineasFormulario = () => {
             alert('Linea agregada satisfactoriamente!')
         }).catch((err) => {
 
-            alert(err.response.data.detail)
+            alert( `Error al agregar la linea: ${err.response.data.detail}`)
         })
 
     }
@@ -42,9 +42,9 @@ const LineasFormulario = () => {
 
             navigate('/lineas')
             alert('Linea Editada Correctamente')
-        }).catch((er) => {
+        }).catch((err) => {
 
-            alert(er.response.data.detail)
+            alert( `Error al editar la linea: ${err.response.data.detail}`)
         })
 
     }

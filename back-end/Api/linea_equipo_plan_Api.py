@@ -18,7 +18,6 @@ def get_all(session:Session=Depends(get_session)):
     except Exception as er:
        raise HTTPException(status_code=500, detail= f'algo falló en la carga de datos {er.args}',)
 
-
 @linea_eqipo_plan_router.get('/{linea}')
 def get_one_linea_equipo_plan(linea: int, session:Session = Depends(get_session)):
     try:
@@ -55,8 +54,6 @@ def get_actived_equipos(fecha:date, session:Session=Depends(get_session)):
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
 
-
-
 @linea_eqipo_plan_router.get('/lieas-disponibles/')
 def get_lineas_libres(session:Session=Depends(get_session)):
     try:
@@ -64,8 +61,6 @@ def get_lineas_libres(session:Session=Depends(get_session)):
 
     except Exception as er:
        raise HTTPException(status_code=500, detail= f'algo falló en la carga de datos {er.args}',)
-
-
 
 @linea_eqipo_plan_router.get('/equipos-disponibles/{numero}')
 def get_equipos_libres(numero: int, session:Session=Depends(get_session)):

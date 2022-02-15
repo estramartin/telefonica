@@ -11,7 +11,6 @@ from Models.planes_model import Planes
 
 class LineaEquipoPlanRepositorio():
     def get_all(self, session:Session):
-        
         return session.query(LienaEquipoPlan, Linea,Equipo, Planes).select_from(LienaEquipoPlan).join(Linea).join(Equipo).join(Planes).all()
 
     def get_one_linea_equipo_plan(self, linea:int, session:Session):
@@ -53,7 +52,6 @@ class LineaEquipoPlanRepositorio():
             return lienaEquipoPlan
         else:
             raise Exception("No encontrado")
-
     
     def get_actived_equipos(self, fecha:date, session:Session):
         equipos_activados = session.query(LienaEquipoPlan, Equipo, Linea, Planes).select_from(LienaEquipoPlan).join(Equipo).join(Linea).join(Planes).where(Linea.estado == 'activada').where(LienaEquipoPlan.fecha_inicio<= fecha).all() 
@@ -62,7 +60,6 @@ class LineaEquipoPlanRepositorio():
     def get_lineas_libres(self, session:Session):
         lineas_libres = session.query(Linea).join(LienaEquipoPlan, full= True ).where(LienaEquipoPlan.linea == None).order_by(Linea.numero).all()
         return lineas_libres
-
 
     def get_equipos_libres(self, numero:int ,session:Session):
        if numero is null:
@@ -73,29 +70,7 @@ class LineaEquipoPlanRepositorio():
              equipos_libres = session.query(Equipo).select_from(LienaEquipoPlan ).join(Equipo, full= True).where(LienaEquipoPlan.linea == None).order_by(Equipo.marca).union(session.query(Equipo).select_from(LienaEquipoPlan).join(Equipo).where(LienaEquipoPlan.linea == numero)).all()
           
              return equipos_libres
-             
-
-
-
-    # def get_equipos_libres(self, numero:int ,session:Session):
-    #    if numero is 0:
-    #           equipos_libres = session.query(Equipo).join(LienaEquipoPlan, full= True ).where(LienaEquipoPlan.equipo == None).order_by(Equipo.marca).all()
-    #           return equipos_libres
-           
-    #    else:
-    #          equipos_libres = session.query(Equipo).join(LienaEquipoPlan, full= True ).where(LienaEquipoPlan.equipo == None).order_by(Equipo.marca).union(session.query(Equipo).join(LienaEquipoPlan).where(LienaEquipoPlan.equipo == numero)).all()
-          
-    #          return equipos_libres
-             
-     
        
-    # def get_equipos_libres(self, session:Session):
-    #     equipos_libres = session.query(Equipo).join(LienaEquipoPlan, full= True ).where(LienaEquipoPlan.equipo == None).order_by(Equipo.marca).all()
-    #     if equipos_libres:   
-    #         return equipos_libres
-    #     else:
-    #         raise Exception('Error')
-
     def get_lep_libres(self, session:Session):
          lineaEquipoPlan = session.query(LienaEquipoPlan,Linea,Equipo, Planes).select_from(LienaEquipoPlan).join(Linea, full=True).join(Equipo, full=True).join(Planes, full=True).all()
          if(lineaEquipoPlan):

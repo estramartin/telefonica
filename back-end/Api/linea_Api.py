@@ -19,7 +19,6 @@ def get_all_lineas(session: Session= Depends(get_session)):
     except Exception as er:
         raise HTTPException(status_code=500, detail= er.args)
 
-
 @linea_router.get('/{numero}')
 def get_one_linea(numero:int, session:Session = Depends(get_session)):
     try:
@@ -35,7 +34,6 @@ def get_one_linea_by_estado(estado:str, session:Session = Depends(get_session)):
 
     except Exception as er:
         raise HTTPException(status_code=500, detail = er.args)
-
 
 @linea_router.delete('/{numero}')
 def delete_linea(numero:int, session:Session= Depends(get_session)):

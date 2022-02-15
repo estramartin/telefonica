@@ -40,7 +40,7 @@ const ClienteFormulario = () => {
 
         }).catch(er => {
 
-            alert(er.response.data.detail)
+            alert(`No se pudo cargar las lineas disponibles: ${er.response.data.detail}`)
         })
 
 
@@ -56,7 +56,7 @@ const ClienteFormulario = () => {
             navigate('/clientes')
 
         }).catch((er) => {
-            alert(er.response.data.detail)
+            alert(`No se pudo agregar el cliente: ${er.response.data.detail}`)
         })
 
     }
@@ -65,10 +65,10 @@ const ClienteFormulario = () => {
         const nuevo = NuevoCliente();
         lineas.forEach(linea => {
             axios.put(`http://127.0.0.1:8000/clientes/${linea.Clientes.lista_l_e_p}`, nuevo).then(() => {
-
+               
 
             }).catch((er) => {
-                alert(er.response.data.detail)
+                alert(`No se pudo editar: ${er.response.data.detail}`)
             })
         })
 
@@ -154,8 +154,8 @@ const ClienteFormulario = () => {
             {Lep(idnombre)}
 
 
-        <button onClick={() => { idnombre ? EditarCliente() : AgregarCliente() }} className="btn btn-primary ms-2 mt-5 mb-5">{idnombre ? 'Editar' : 'Agregar'}</button>
-        <button onClick={() => { navigate('/clientes') }} className="btn btn-danger ms-3  mt-5 mb-5">Cancelar</button>
+            <button onClick={() => { idnombre ? EditarCliente() : AgregarCliente() }} className="btn btn-primary ms-2 mt-5 mb-5">{idnombre ? 'Editar' : 'Agregar'}</button>
+            <button onClick={() => { navigate('/clientes') }} className="btn btn-danger ms-3  mt-5 mb-5">Cancelar</button>
 
         </div>
 

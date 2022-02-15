@@ -23,55 +23,55 @@ const LineasPlanesEquiposFormulario = () => {
 
     const { linea, plan, fecha_fin, equipo, fecha_inicio, costo } = lineasEquiposPlanes
 
-    const TraerPlanes = async () => {
+    const TraerPlanes = () => {
 
 
-        await axios.get('http://127.0.0.1:8000/planes/').then((response) => {
+        axios.get('http://127.0.0.1:8000/planes/').then((response) => {
 
             setPlanes(response.data)
 
         }).catch((er) => {
 
-            alert(er.response.data.detail)
+            alert(`Error al traer los planes disponibles: ${er.response.data.detail}`)
         })
 
     }
 
-    const TraerLineas = async () => {
+    const TraerLineas = () => {
 
-        await axios.get('http://127.0.0.1:8000/linea-equipo-plan/lieas-disponibles/').then((response) => {
+         axios.get('http://127.0.0.1:8000/linea-equipo-plan/lieas-disponibles/').then((response) => {
 
             setLineas(response.data);
 
         }).catch((er) => {
 
-            alert(er.response.data.detail)
+            alert(`Error al traer las lineas disponibles: ${er.response.data.detail}`)
         })
 
     }
 
-    const TraerEquipos = async () => {
+    const TraerEquipos = () => {
 
 
         if (pel) {
-            await axios.get(`http://127.0.0.1:8000/linea-equipo-plan/equipos-disponibles/${pel}`).then((response) => {
+            axios.get(`http://127.0.0.1:8000/linea-equipo-plan/equipos-disponibles/${pel}`).then((response) => {
 
                 setEquipos(response.data)
 
             }).catch((err) => {
 
-                alert(err.response.data.detail)
+                alert( `Error al traer los equipos disponibles: ${err.response.data.detail}`)
             })
         }
         else {
 
-            await axios.get(`http://127.0.0.1:8000/linea-equipo-plan/equipos-disponibles/${0}`).then((response) => {
+            axios.get(`http://127.0.0.1:8000/linea-equipo-plan/equipos-disponibles/${0}`).then((response) => {
 
                 setEquipos(response.data)
 
             }).catch((err) => {
 
-                alert(err.response.data.detail)
+                alert( `Error al traer los equipos disponibles: ${err.response.data.detail}`)
             })
         }
     }
@@ -100,7 +100,7 @@ const LineasPlanesEquiposFormulario = () => {
             navigate('/planes-equipos-lineas')
             alert("Agregado Correctamente")
         }).catch(er => {
-            alert(er.response.data.detail)
+            alert(alert( `Error al asociar la linea con el equipo y el plan: ${er.response.data.detail}`))
         })
     }
 
@@ -114,7 +114,7 @@ const LineasPlanesEquiposFormulario = () => {
             navigate('/planes-equipos-lineas')
             alert("Editado Correctamente")
         }).catch(er => {
-            alert(er.response.data.detail)
+            alert( `Error al editar la linea: ${er.response.data.detail}`)
         })
     }
 

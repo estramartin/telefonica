@@ -18,7 +18,6 @@ def get_all_clientes(session:Session=Depends(get_session)):
     except Exception as er:
        raise HTTPException(status_code=500, detail= f'algo falló en la carga de datos {er.args}')
 
-
 @clientes_router.get('/{lista}')
 def get_one_cliente_lista(lista: int, session:Session =Depends(get_session)):
     try:
