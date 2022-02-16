@@ -8,7 +8,7 @@ const LineasFormulario = () => {
     const { numerotel } = useParams()
 
     const [lineas, setLineas] = useState({
-        numero: '',
+        numero: 0,
         estado: ''
     })
 
@@ -29,7 +29,8 @@ const LineasFormulario = () => {
             alert('Linea agregada satisfactoriamente!')
         }).catch((err) => {
 
-            alert( `Error al agregar la linea: ${err.response.data.detail}`)
+            alert( `Error al agregar la linea: ${err.response.data.detail[0]}`)
+           
         })
 
     }
@@ -44,7 +45,7 @@ const LineasFormulario = () => {
             alert('Linea Editada Correctamente')
         }).catch((err) => {
 
-            alert( `Error al editar la linea: ${err.response.data.detail}`)
+            alert( `Error al editar la linea: ${err.response.data.detail[0]}`)
         })
 
     }
@@ -61,7 +62,7 @@ const LineasFormulario = () => {
            return <input disabled onChange={(e) => { ModificacionEnForm(e.target) }} name="numero" value={numero} className="form-control form-control-lg m-2 w-50" type="text" placeholder="ej: 5434312345678" />
         }else{
 
-            return <input onChange={(e) => { ModificacionEnForm(e.target) }} name="numero" value={numero} className="form-control form-control-lg m-2 w-50" type="text" placeholder="ej: 5434312345678" />
+            return <input onChange={(e) => { ModificacionEnForm(e.target) }} minLength="7" name="numero" value={numero} className="form-control form-control-lg m-2 w-50" type="text" placeholder="ej: 5434312345678" />
         }
 
 
@@ -86,7 +87,7 @@ const LineasFormulario = () => {
 
     return (
         <>
-            <h1>Agregar Linea</h1>
+            <h1>Formulario Linea</h1>
            
            <div className="ms-5">
             <label className="ms-3 mt-5"><h5>Numero</h5></label>
@@ -96,7 +97,7 @@ const LineasFormulario = () => {
           
             <label className="ms-3 mt-3"><h5>Estado</h5></label>
 
-            <select  onChange={(e) => ModificacionEnForm(e.target)} className="form-select w-25 m-2" name='estado' value={estado} aria-label="Default select example">
+            <select  onChange={(e) => ModificacionEnForm(e.target)}  className="form-select w-25 m-2" name='estado' value={estado} aria-label="Default select example">
                 <option hidden>Seleccione un Estado</option>
                 <option value="pendiente">Pendiente</option>
                 <option value="activada">Activada</option>

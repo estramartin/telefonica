@@ -1,4 +1,5 @@
 
+from doctest import ELLIPSIS_MARKER
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.expression import select
 from Models.planes_model import Planes, PlanesModel
@@ -26,19 +27,45 @@ class PLanesRepositorio():
             raise Exception('Plan no encontrado')
 
     def post_new_plan(self, datos: PlanesModel, session:Session):
-        plan = Planes(nombre = datos.nombre, cant_llamadas = datos.cant_llamadas, cant_sms = datos.cant_sms, cant_gigas = datos.cant_gigas, tipo = datos.tipo, costo = datos.costo)
-        session.add(plan)
-        session.commit()
-        return plan
+        if len(datos.nombre) < 3:
+           raise Exception("El nombre debe tener 3 letras o mas")   
+        elif datos.cant_gigas < 0:
+            raise Exception("La cantidad de gigas no puede ser menor que 0")
+        elif datos.cant_llamadas < 0:
+            raise Exception("La cantidad de llamadas no puede ser menor que 0")     
+        elif datos.cant_sms < 0:
+            raise Exception("La cantidad de SMS no puede ser menor que 0")
+        elif datos.costo < 0:
+            raise Exception("El costo no puede ser menor que 0")
+        elif len(datos.tipo) <2:
+            raise Exception("Debe seleccionar un tipo de plan")         
+        else:
+            plan = Planes(nombre = datos.nombre, cant_llamadas = abs(datos.cant_llamadas), cant_sms = abs(datos.cant_sms), cant_gigas = abs(datos.cant_gigas), tipo = datos.tipo, costo = abs(datos.costo))
+            session.add(plan)
+            session.commit()
+            return plan
+
 
     def update_plan(self, nombre:str, datos:PlanesModel, session:Session):
         plan = session.get(Planes, nombre)
-        if(plan):
-            plan.cant_llamadas = datos.cant_llamadas
-            plan.cant_sms = datos.cant_sms
-            plan.cant_gigas = datos.cant_gigas
+        if len(datos.nombre) < 3:
+           raise Exception("El nombre debe tener 3 letras o mas")   
+        elif datos.cant_gigas < 0:
+            raise Exception("La cantidad de gigas no puede ser menor que 0")
+        elif datos.cant_llamadas < 0:
+            raise Exception("La cantidad de llamadas no puede ser menor que 0")     
+        elif datos.cant_sms < 0:
+            raise Exception("La cantidad de SMS no puede ser menor que 0")
+        elif datos.costo < 0:
+            raise Exception("El costo no puede ser menor que 0")
+        elif len(datos.tipo) <2:
+            raise Exception("Debe seleccionar un tipo de plan")         
+        elif(plan):
+            plan.cant_llamadas = abs(datos.cant_llamadas)
+            plan.cant_sms = abs(datos.cant_sms)
+            plan.cant_gigas = abs(datos.cant_gigas)
             plan.tipo = datos.tipo
-            plan.costo = datos.costo
+            plan.costo = abs(datos.costo)
             session.commit()
            
         else:

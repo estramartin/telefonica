@@ -11,7 +11,7 @@ from Models.planes_model import Planes
 
 class LineaEquipoPlanRepositorio():
     def get_all(self, session:Session):
-        return session.query(LienaEquipoPlan, Linea,Equipo, Planes).select_from(LienaEquipoPlan).join(Linea).join(Equipo).join(Planes).all()
+        return session.query(LienaEquipoPlan, Linea,Equipo, Planes).select_from(LienaEquipoPlan).join(Linea).join(Equipo).join(Planes).order_by(LienaEquipoPlan.linea).all()
 
     def get_one_linea_equipo_plan(self, linea:int, session:Session):
          lineaEquipoPlan = session.query(LienaEquipoPlan, Linea,Equipo, Planes).select_from(LienaEquipoPlan).join(Linea).join(Equipo).join(Planes).where(LienaEquipoPlan.linea == linea).all()

@@ -10,7 +10,7 @@ const EquipoFormulario =()=>{
     const [equipos, setEquipos]= useState({
         modelo:'',
         estado:'',
-        fecha_ingreso:'',
+        fecha_ingreso: '',
         codigo: '',
         marca: ''
     })
@@ -40,7 +40,8 @@ const EquipoFormulario =()=>{
 
         }).catch((err)=>{
 
-            alert( `Error al agregar el Equipo: ${err.response.data.detail}`)
+            alert( `Error al agregar el Equipo: ${err.response.data.detail[0]}`)
+            console.log(err.response.data.detail[0])
         })
 
     }
@@ -55,7 +56,7 @@ const EquipoFormulario =()=>{
             alert('Equipo editado correctamente')
         }).catch((err)=>{
 
-            alert( `Error al editar el Equipo: ${err.response.data.detail}`)
+            alert( `Error al editar el Equipo: ${err.response.data.detail[0]}`)
         })
 
 
@@ -78,7 +79,7 @@ const EquipoFormulario =()=>{
         setEquipos({...equipos,[e.name]: e.value})
 
     }
-
+    console.log(equipos)
     return(
         <>
             <h1>Agregar Equipos</h1>

@@ -7,7 +7,7 @@ from Models.linea_model import Linea, LineaModel
 class LineaRepositorio():
 
     def get_all_lineas(self, session:Session):
-        lineas =  session.execute(select(Linea)).scalars().all() 
+        lineas =  session.execute(select(Linea).order_by(Linea.numero)).scalars().all() 
         return lineas
 
     def get_one_linea(self, numero: int, session: Session):
@@ -34,6 +34,12 @@ class LineaRepositorio():
             raise Exception('Linea no encontrado')
 
     def post_new_linea(self, datos:LineaModel, session:Session):
+        if datos.numero < 7:
+            raise Exception("El numero debe tener mas de 7 caracteres")
+        if len(datos.estado) < 2:
+            raise Exception("Debe seleccionar un estado")
+        
+        
         linea = Linea(numero = datos.numero, estado = datos.estado)
         session.add(linea)
         session.commit()

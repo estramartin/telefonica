@@ -1,9 +1,9 @@
-from datetime import date, datetime
+from datetime import date
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.expression import column
 from Models.equipo_model import Equipo, EquipoModel
 from sqlalchemy.sql.expression import select
-format_data = "%d/%m/%Y"
+
 
 class EquipoRepositorio:
       def get_all_equipos(self, session:Session):
@@ -40,14 +40,31 @@ class EquipoRepositorio:
           raise Exception('Modelo no encotrado')
         
       def post_new_equipo(self, datos:EquipoModel, session: Session):
-          equipo = Equipo(marca = datos.marca, modelo = datos.modelo, estado = datos.estado, fecha_ingreso = date.strftime(datos.fecha_ingreso, format_data) )
-          session.add(equipo)
-          session.commit()
-          return equipo
+          if len(datos.marca)<1:
+            raise Exception("La marca debe tener al menos un caracter")
+          elif len(datos.modelo)<1:
+            raise Exception("El modelo debe tener al menos un caracter")
+          elif datos.fecha_ingreso:
+            raise Exception("debe ingresar una fecha de ingreso")
+          elif len(datos.estado)<1:
+            raise Exception("Debe seleccionar un estado")
+          else:         
+            equipo = Equipo(marca = datos.marca, modelo = datos.modelo, estado = datos.estado, fecha_ingreso = date.strftime(datos.fecha_ingreso, format_data) )
+            session.add(equipo)
+            session.commit()
+            return equipo
 
       def update_equipo(self, codigo:int, datos: EquipoModel, session:Session):
           equipo = session.get(Equipo,codigo)
-          if equipo:
+          if len(datos.marca)<1:
+              raise Exception("La marca debe tener al menos un caracter")
+          elif len(datos.modelo)<1:
+              raise Exception("El modelo debe tener al menos un caracter")
+          elif datos.fecha_ingreso: #####VIENDO COMO CONTROLAR LA FECHA!
+              raise Exception("debe ingresar una fecha de ingreso")
+          elif len(datos.estado)<1:
+              raise Exception("Debe seleccionar un estado")
+          elif equipo:
              equipo.marca = datos.marca
              equipo.modelo = datos.modelo 
              equipo.estado = datos.estado
