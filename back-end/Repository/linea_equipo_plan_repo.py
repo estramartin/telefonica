@@ -21,13 +21,18 @@ class LineaEquipoPlanRepositorio():
              raise Exception('No encontrado') 
 
     def post_new_linea_equipo_plan(self, datos: LienaEquipoPlanModel, session:Session):
-        lineaEquipoPlan = LienaEquipoPlan(plan= datos.plan, equipo = datos.equipo, fecha_inicio = datos.fecha_inicio, costo = datos.costo, linea = datos.linea, fecha_fin = datos.fecha_fin )
-        if lineaEquipoPlan:
+        
+        if datos.linea <1:
+            raise Exception("Debe seleccionar una linea")
+        elif datos.equipo <1:
+            raise Exception("Debe seleccionar un Equipo")
+        elif len(datos.plan) <1:
+            raise Exception("Dene seleccionar un Plan")
+        else:
+            lineaEquipoPlan = LienaEquipoPlan(plan= datos.plan, equipo = datos.equipo, fecha_inicio = datos.fecha_inicio, costo = datos.costo, linea = datos.linea, fecha_fin = datos.fecha_fin )
             session.add(lineaEquipoPlan)
             session.commit()
             return lineaEquipoPlan
-        else:
-            raise Exception('No creado')
             
     def delete_linea_equipo_plan( self, linea:int, session:Session):
         lineaEquipoPlan = session.get(LienaEquipoPlan, linea)
@@ -41,8 +46,13 @@ class LineaEquipoPlanRepositorio():
         
     def update_linea_equipo_plan(self, linea:int, datos:LienaEquipoPlanModel, session:Session):
         lienaEquipoPlan = session.get(LienaEquipoPlan, linea)
-
-        if(lienaEquipoPlan):
+        if datos.linea <1:
+            raise Exception("Debe seleccionar una linea")
+        elif datos.equipo <1:
+            raise Exception("Debe seleccionar un Equipo")
+        elif len(datos.plan) <1:
+            raise Exception("Dene seleccionar un Plan")
+        elif lienaEquipoPlan:
             lienaEquipoPlan.plan =datos.plan
             lienaEquipoPlan.equipo = datos.equipo
             lienaEquipoPlan.fecha_inicio = datos.fecha_inicio

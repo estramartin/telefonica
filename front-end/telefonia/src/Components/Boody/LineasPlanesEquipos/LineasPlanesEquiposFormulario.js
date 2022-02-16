@@ -100,7 +100,8 @@ const LineasPlanesEquiposFormulario = () => {
             navigate('/planes-equipos-lineas')
             alert("Agregado Correctamente")
         }).catch(er => {
-            alert(alert( `Error al asociar la linea con el equipo y el plan: ${er.response.data.detail}`))
+            alert( `Error al asociar la linea con el equipo y el plan: ${er.response.data.detail[0]}`)
+            console.log(er.response.data.detail[0])
         })
     }
 
@@ -114,7 +115,8 @@ const LineasPlanesEquiposFormulario = () => {
             navigate('/planes-equipos-lineas')
             alert("Editado Correctamente")
         }).catch(er => {
-            alert( `Error al editar la linea: ${er.response.data.detail}`)
+            alert( `Error al editar la linea: ${er.response.data.detail[0]}`)
+            console.log(er.response.data.detail[0])
         })
     }
 
@@ -141,9 +143,9 @@ const LineasPlanesEquiposFormulario = () => {
 
     }
 
-
+    
     useEffect(() => {
-        //NuevoPlanEquipoLinea();
+        
         if (pel) {
             axios.get(`http://127.0.0.1:8000/linea-equipo-plan/${pel}`).then((response) => {
 
@@ -172,6 +174,8 @@ const LineasPlanesEquiposFormulario = () => {
         setLineasEquiposPlanes({ ...lineasEquiposPlanes, [e.name]: e.value })
 
     }
+
+    
     return (
         <>
             <h1>Formulario Lineas-Planes-Equipos</h1>

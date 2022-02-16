@@ -40,7 +40,7 @@ const ClienteFormulario = () => {
 
         }).catch(er => {
 
-            alert(`No se pudo cargar las lineas disponibles: ${er.response.data.detail}`)
+            alert(`No se pudo cargar las lineas disponibles: ${er.response.data.detail[0]}`)
         })
 
 
@@ -57,6 +57,7 @@ const ClienteFormulario = () => {
 
         }).catch((er) => {
             alert(`No se pudo agregar el cliente: ${er.response.data.detail}`)
+            
         })
 
     }
@@ -65,15 +66,16 @@ const ClienteFormulario = () => {
         const nuevo = NuevoCliente();
         lineas.forEach(linea => {
             axios.put(`http://127.0.0.1:8000/clientes/${linea.Clientes.lista_l_e_p}`, nuevo).then(() => {
-               
+                alert("Cliente editado satisfactoriamente")
+                navigate('/clientes') 
 
             }).catch((er) => {
-                alert(`No se pudo editar: ${er.response.data.detail}`)
+                alert(`No se pudo editar: ${er.response.data.detail[0]}`)
+                console.log(er.response.data.detail)
             })
         })
 
-        alert("Cliente editado satisfactoriamente")
-        navigate('/clientes')
+       
     }
 
 

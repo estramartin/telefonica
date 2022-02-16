@@ -7,7 +7,6 @@ const OtraLinea = () => {
 
     const { idnombre } = useParams();
     const navigate = useNavigate();
-    // const [nuevaLinea, setNuevaLinea] = useState(0);
     const [lineasDisponibles, setLineasDisponibles]= useState([]);
     const [cliente, setCliente] = useState({
         direccion: '',
@@ -81,7 +80,7 @@ const OtraLinea = () => {
         setCliente({...cliente,[e.name]: e.value})
     }
 
-    console.log(cliente)
+ 
     return (
         <>
             <h1>Asociar otra Linea a {nombre}</h1>

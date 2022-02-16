@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const EquipoFormulario =()=>{
-
+            
     const navigate = useNavigate()
     const {equipoid} = useParams()
     const [equipos, setEquipos]= useState({
@@ -79,7 +79,7 @@ const EquipoFormulario =()=>{
         setEquipos({...equipos,[e.name]: e.value})
 
     }
-    console.log(equipos)
+   
     return(
         <>
             <h1>Agregar Equipos</h1>

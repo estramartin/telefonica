@@ -44,7 +44,7 @@ def post_new_cliente(datos:ClientesModel, session:Session=Depends(get_session)):
     try:
         return repo.post_new_cliente(datos, session)
     except Exception as er:
-       raise HTTPException(status_code=500, detail= f'algo saió mal {er.args}')
+       raise HTTPException(status_code=500, detail= er.args)
     finally:
         session.close()
 

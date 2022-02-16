@@ -34,7 +34,7 @@ class LineaRepositorio():
             raise Exception('Linea no encontrado')
 
     def post_new_linea(self, datos:LineaModel, session:Session):
-        if datos.numero < 7:
+        if datos.numero < 999999:
             raise Exception("El numero debe tener mas de 7 caracteres")
         if len(datos.estado) < 2:
             raise Exception("Debe seleccionar un estado")

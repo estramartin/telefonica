@@ -31,14 +31,22 @@ class ClientesRepositorio():
             raise Exception("Cliente no encontrado")
 
     def post_new_cliente(self, datos:ClientesModel, session:Session):
-        cliente = Clientes(direccion = datos.direccion, nombre = datos.nombre, edad = datos.edad, lista_l_e_p = datos.lista_l_e_p, sexo = datos.sexo, telefonos=datos.telefonos )
-        if cliente:
+        if len(datos.nombre)<5:
+            raise Exception("El nombre debe contener al menos 5 caracteres")
+        if len(datos.sexo)<2:
+            raise Exception("Debe seleccionar el campo sexo")
+        if len(datos.direccion) < 5:
+            raise Exception("La direccion debe contener al menos 5 caracteres")
+        if datos.telefonos < 999999 :
+            raise Exception("El Telefono debe tner al menos 7 caracteres")
+        if datos.lista_l_e_p < 1:
+            raise Exception("Desbe seleccionar una linea")
+        else:        
+            cliente = Clientes(direccion = datos.direccion, nombre = datos.nombre, edad = datos.edad, lista_l_e_p = datos.lista_l_e_p, sexo = datos.sexo, telefonos=datos.telefonos )
             session.add(cliente)
             session.commit()
-        else:
-            raise Exception("Cliente vacio")
-        return cliente
-    
+            return cliente
+        
     def delete_cliente(self, linea:int , session :Session):
         cliente = session.get(Clientes, linea)
         if cliente:
@@ -51,19 +59,29 @@ class ClientesRepositorio():
 
     def update_cliente(self, lista_l_e_p:int, datos: ClientesModel, session:Session):
         cliente = session.get(Clientes, lista_l_e_p )
-
-        if cliente:
+        if len(datos.nombre)<5:
+            raise Exception("El nombre debe contener al menos 5 caracteres")
+        if len(datos.sexo)<2:
+            raise Exception("Debe seleccionar el campo sexo")
+        if len(datos.direccion) < 5:
+            raise Exception("La direccion debe contener al menos 5 caracteres")
+        if datos.telefonos < 999999 :
+            raise Exception("El Telefono debe tener al menos 7 caracteres")
+        if datos.lista_l_e_p < 1:
+            raise Exception("Desbe seleccionar una linea")
+        elif cliente:
             cliente.direccion = datos.direccion
             cliente.nombre = datos.nombre
             cliente.edad = datos.edad
             cliente.sexo = datos.sexo
             cliente.telefonos = datos.telefonos
             session.commit()
+            return cliente
         
         else:
             raise Exception('Cliente no encontrado')
         
-        return cliente
+        
     
     def actived_clientes_date(self, fecha:date, session:Session):
       return session.query(Clientes.nombre, Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).select_from(LienaEquipoPlan).join(Linea).where(Clientes.lista_l_e_p == LienaEquipoPlan.linea).where(Linea.estado == 'activada' ).where(LienaEquipoPlan.fecha_inicio <=fecha).group_by(Clientes.nombre,Clientes.direccion, Clientes.telefonos, Clientes.edad, Clientes.sexo).all()
