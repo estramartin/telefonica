@@ -7,9 +7,10 @@ const ClienteFormulario = () => {
 
     const navigate = useNavigate();
     const { idnombre } = useParams();
+    const [fechaHoy, setFechaHoy] = useState(new Date())
     const [lineas, setLineas] = useState([]);
     const [lineasDisponibles, setLineasDisponibles] = useState([]);
-
+    const [mensaje, setMensaje] = useState('');
     const [cliente, setCliente] = useState({
         direccion: '',
         edad: '',
@@ -55,27 +56,35 @@ const ClienteFormulario = () => {
             alert("Cliente agregado satisfactoriamente")
             navigate('/clientes')
 
-        }).catch((er) => {
-            alert(`No se pudo agregar el cliente: ${er.response.data.detail}`)
+        }).catch((err) => {
             
+            if(err.response.data.detail[0].msg == "invalid date format"){
+
+                alert(`Debe ingresar una fecha: ${err.response.data.detail[0].msg}`)
+             }else{
+            
+            alert(`No se pudo agregar el cliente: ${err.response.data.detail}`)
+             }
         })
 
     }
 
     const EditarCliente = () => {
         const nuevo = NuevoCliente();
+
         lineas.forEach(linea => {
             axios.put(`http://127.0.0.1:8000/clientes/${linea.Clientes.lista_l_e_p}`, nuevo).then(() => {
-                alert("Cliente editado satisfactoriamente")
-                navigate('/clientes') 
+                setMensaje("Cliente Editado Correctamente");
+                navigate('/clientes')
 
             }).catch((er) => {
-                alert(`No se pudo editar: ${er.response.data.detail[0]}`)
-                console.log(er.response.data.detail)
+                setMensaje(`No se pudo editar: ${er.response.data.detail[0]}`);
+
             })
         })
 
-       
+
+
     }
 
 
@@ -98,7 +107,18 @@ const ClienteFormulario = () => {
 
 
     }
+    const CambioEnFormulario = (e) => {
 
+        setCliente({ ...cliente, [e.name]: e.value })
+    }
+
+    useEffect(()=>{setFechaHoy(new Date())},[])
+
+    useEffect(() => {
+       if (mensaje) {
+            alert(mensaje)
+        }
+    }, [mensaje])
 
 
     useEffect(() => {
@@ -108,29 +128,18 @@ const ClienteFormulario = () => {
             axios.get(`http://127.0.0.1:8000/clientes/nombre/${idnombre}`).then((response) => {
                 setLineas(response.data)
                 setCliente(response.data[0].Clientes)
-
-
             }).catch(err => {
-
                 alert(err.response.data.detail)
             })
-
         }
         else {
-
             TraerLineasDisponibles();
-
-        }
-
+       }
     }, [idnombre])
 
-    const CambioEnFormulario = (e) => {
 
-        setCliente({ ...cliente, [e.name]: e.value })
-    }
-
-
-
+    
+    
     return (<>
 
         <h1>Formulario Cliente</h1>
@@ -139,7 +148,7 @@ const ClienteFormulario = () => {
             <label className="ms-3 mt-5"><h5>Nombre</h5></label>
             <input onChange={(e) => { CambioEnFormulario(e.target) }} type="text" name="nombre" value={nombre} className="form-control form-control-lg m-2 w-50" placeholder="ej: Perez Luis Alberto" />
             <label className="ms-3 mt-3"><h5>Fehca Nacimiento</h5></label>
-            <input onChange={(e) => { CambioEnFormulario(e.target) }} max={Date.now().toLocaleString()} type="date" name="edad" value={edad} className="form-control form-control-lg m-2 w-25" placeholder="ej: 21-10-2022" />
+            <input onChange={(e) => { CambioEnFormulario(e.target) }}  type="date" name="edad" value={edad} className="form-control form-control-lg m-2 w-25" placeholder="ej: 21-10-2022" />
             <label className="ms-3 mt-3"><h5>Sexo</h5></label>
             <select onChange={(e) => CambioEnFormulario(e.target)} className="form-select w-25 m-2" name='sexo' value={sexo} aria-label="Default select example">
                 <option hidden>Opciones</option>
@@ -150,7 +159,7 @@ const ClienteFormulario = () => {
             <label className="ms-3 mt-3"><h5>Direccion</h5></label>
             <input onChange={(e) => { CambioEnFormulario(e.target) }} type="text" name="direccion" value={direccion} className="form-control form-control-lg m-2 w-50" placeholder="ej: Corrientes 1200" />
             <label className="ms-3 mt-3"><h5>Telefono</h5></label>
-            <input onChange={(e) => { CambioEnFormulario(e.target) }} type="text" name="telefonos" value={telefonos} className="form-control form-control-lg m-2 w-25" placeholder="ej: 3432342342" />
+            <input onChange={(e) => { CambioEnFormulario(e.target) }} type="number" name="telefonos" value={telefonos} className="form-control form-control-lg m-2 w-25" placeholder="ej: 3432342342" />
 
 
             {Lep(idnombre)}

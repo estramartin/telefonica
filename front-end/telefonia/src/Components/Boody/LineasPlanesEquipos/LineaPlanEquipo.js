@@ -15,11 +15,6 @@ const LienaPlanEquipo =(props)=>{
             return fecha.toLocaleDateString();
         }
     }  
-    
-    
-
-
-
     const navigate = useNavigate()
     return(
         <>
@@ -32,7 +27,7 @@ const LienaPlanEquipo =(props)=>{
                 <td>{props.lep.Equipo.marca}</td>
                 <td>{props.lep.Equipo.modelo}</td>
                 <td>{props.lep.Equipo.estado}</td>
-                <td>{props.lep.Planes.costo}</td>     
+                <td>${props.lep.Planes.costo}-</td>     
                 <td><button className="btn btn-danger" onClick={() => { props.ElimiarLineaEquipoPlan(props.lep.LienaEquipoPlan.linea) }}>Eliminar</button></td>
                 <td><button className="btn btn-warning" onClick={() => { navigate(`/planes-equipos-lineas/agregar/${props.lep.LienaEquipoPlan.linea}`) }} >Editar</button></td> 
 

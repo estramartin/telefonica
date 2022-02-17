@@ -3,14 +3,16 @@ import { useNavigate,useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
 const EquipoFormulario =()=>{
-            
+
+       
     const navigate = useNavigate()
     const {equipoid} = useParams()
     const [equipos, setEquipos]= useState({
         modelo:'',
         estado:'',
-        fecha_ingreso: '',
+        fecha_ingreso: '' ,
         codigo: '',
         marca: ''
     })
@@ -39,9 +41,14 @@ const EquipoFormulario =()=>{
         alert('Equipo agregado correctamente')
 
         }).catch((err)=>{
+           
+            if(err.response.data.detail[0].msg == "invalid date format"){
 
+               alert(`Debe ingresar una fecha: ${err.response.data.detail[0].msg}`)
+            }else{          
             alert( `Error al agregar el Equipo: ${err.response.data.detail[0]}`)
             console.log(err.response.data.detail[0])
+            }
         })
 
     }
@@ -61,7 +68,11 @@ const EquipoFormulario =()=>{
 
 
     }
+    const CambioEnFormulario =(e)=>{
 
+        setEquipos({...equipos,[e.name]: e.value})
+
+    }
 
     useEffect(()=>{
 
@@ -74,12 +85,6 @@ const EquipoFormulario =()=>{
         }
     },[equipoid])
 
-    const CambioEnFormulario =(e)=>{
-
-        setEquipos({...equipos,[e.name]: e.value})
-
-    }
-   
     return(
         <>
             <h1>Agregar Equipos</h1>

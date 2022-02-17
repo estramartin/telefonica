@@ -44,20 +44,20 @@ const LineasComponent=()=>{
 
     const EliminarLinea=(numero)=>{
 
-        axios.delete(`http://127.0.0.1:8000/linea/${numero}`).then((response)=>{
+        axios.delete(`http://127.0.0.1:8000/linea/${numero}`).then(()=>{
         TraerLineas();
         alert('Linea Eliminada')
 
         }).catch(err=>{
 
-            alert(`No se puede eliminar porque ${err.response.data.detail}` )
+            alert(`No se puede eliminar porque la linea esta asociada a un plan y un equipo:  ${err.response.data.detail}` )
 
         })
 
     }
 
     useEffect(()=>{TraerLineas()},[])
-    // useEffect(()=>{ListarBusqueda()},[])
+    
     
 
     return(<>

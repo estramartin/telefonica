@@ -44,12 +44,10 @@ class EquipoRepositorio:
             raise Exception("La marca debe tener al menos un caracter")
           elif len(datos.modelo)<1:
             raise Exception("El modelo debe tener al menos un caracter")
-          elif datos.fecha_ingreso:
-            raise Exception("debe ingresar una fecha de ingreso")
           elif len(datos.estado)<1:
             raise Exception("Debe seleccionar un estado")
           else:         
-            equipo = Equipo(marca = datos.marca, modelo = datos.modelo, estado = datos.estado, fecha_ingreso = date.strftime(datos.fecha_ingreso, format_data) )
+            equipo = Equipo(marca = datos.marca, modelo = datos.modelo, estado = datos.estado, fecha_ingreso =datos.fecha_ingreso)
             session.add(equipo)
             session.commit()
             return equipo

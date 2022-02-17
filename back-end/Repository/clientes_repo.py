@@ -65,7 +65,7 @@ class ClientesRepositorio():
             raise Exception("Debe seleccionar el campo sexo")
         if len(datos.direccion) < 5:
             raise Exception("La direccion debe contener al menos 5 caracteres")
-        if datos.telefonos < 999999 :
+        if datos.telefonos < 2 :
             raise Exception("El Telefono debe tener al menos 7 caracteres")
         if datos.lista_l_e_p < 1:
             raise Exception("Desbe seleccionar una linea")

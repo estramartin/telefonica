@@ -42,7 +42,7 @@ const PlanesFormulario = () => {
             navigate('/planes')
             alert('Plan agregado correctamente')
         }).catch((err) => {
-
+           
             alert(`Error al agregar el plan: ${err.response.data.detail[0]}`)
            
         })
@@ -64,7 +64,7 @@ const PlanesFormulario = () => {
 
         setPlanes({ ...planes, [e.name]: e.value })
     }
-    console.log(planes)
+    
     const Input = () => {
         if (nombreplan) {
 
@@ -98,7 +98,6 @@ const PlanesFormulario = () => {
             <div className="ms-5">
                 <label className="ms-3 mt-5"><h5>Nombre</h5></label>
                 {Input()}
-                {/* <input onChange={(e) => { CambioEnFormulario(e.target) }} type="text" minLength={3} name="nombre" value={nombre} className="form-control form-control-lg m-2 w-50" placeholder="ej: Max" /> */}
                 <label className="ms-3 mt-3"><h5>Cantidad de llamadas</h5></label>
                 <input onChange={(e) => { CambioEnFormulario(e.target) }} type="number" min="0" name="cant_llamadas" value={cant_llamadas} className="form-control form-control-lg m-2 w-25" placeholder="ej: 200" />
                 <label className="ms-3 mt-3"><h5>Cantidad de SMS</h5></label>

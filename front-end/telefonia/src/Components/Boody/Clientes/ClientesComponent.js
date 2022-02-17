@@ -80,7 +80,7 @@ const ClientesComponent = () => {
         <tbody>
 
           {clientes.map((cliente) => {
-            console.log(cliente)
+           
             return (<Cliente key={cliente.nombre} cliente={cliente} />)
             
           })

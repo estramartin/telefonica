@@ -32,7 +32,7 @@ const PlanesComponent = () => {
       alert('Plan eliminado correctamente')
     }).catch((er)=>{
 
-      alert(er.response.data.detail)
+      alert(`No se puede eliminar porque este plan tiene lineas asociadas`)
     })
 
   }

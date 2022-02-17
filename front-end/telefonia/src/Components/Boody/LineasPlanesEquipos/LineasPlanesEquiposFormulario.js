@@ -99,9 +99,15 @@ const LineasPlanesEquiposFormulario = () => {
             setLineasEquiposPlanes(response.data)
             navigate('/planes-equipos-lineas')
             alert("Agregado Correctamente")
-        }).catch(er => {
-            alert( `Error al asociar la linea con el equipo y el plan: ${er.response.data.detail[0]}`)
-            console.log(er.response.data.detail[0])
+        }).catch(err => {
+            if(err.response.data.detail[0].msg == "invalid date format"){
+
+                alert(`Debe ingresar una fecha de Inicio: ${err.response.data.detail[0].msg}`)
+             }else{          
+                alert( `Error al asociar la linea con el equipo y el plan: ${err.response.data.detail[0]}`)
+                console.log(err.response.data.detail[0])
+             }
+           
         })
     }
 
@@ -180,8 +186,13 @@ const LineasPlanesEquiposFormulario = () => {
         <>
             <h1>Formulario Lineas-Planes-Equipos</h1>
             <div className="ms-5">
+               
+                {/* Fecha Inicio */}
+                <label className="ms-3 mt-5"><h5>Fecha Inicio</h5></label>
+                <input onChange={(e) => { CambioEnFormulario(e.target) }} type="date" name="fecha_inicio" value={fecha_inicio} className="form-control form-control-lg m-2 w-25" placeholder="ej: 2022-02-23" />
+              
                 {/* Linea */}
-                <label className="ms-3 mt-5"><h5>Linea</h5></label>
+                <label className="ms-3 mt-3"><h5>Linea</h5></label>
                 {Lep(pel)}
 
                 {/* Equipo */}
@@ -204,10 +215,7 @@ const LineasPlanesEquiposFormulario = () => {
                     })}
                 </select>
 
-                {/* Fecha Inicio */}
-                <label className="ms-3 mt-3"><h5>Fecha Inicio</h5></label>
-                <input onChange={(e) => { CambioEnFormulario(e.target) }} type="date" name="fecha_inicio" value={fecha_inicio} className="form-control form-control-lg m-2 w-25" placeholder="ej: 2022-02-23" />
-
+               
                 {/* Fecha Fin */}
                 <label className="ms-3 mt-3"><h5>Fecha Fin</h5></label>
                 <input onChange={(e) => { CambioEnFormulario(e.target) }} type="date" defaultValue={null} name="fecha_fin" min={fecha_inicio} value={fecha_fin} className="form-control form-control-lg m-2 w-25" placeholder="ej: 2022-12-24" />

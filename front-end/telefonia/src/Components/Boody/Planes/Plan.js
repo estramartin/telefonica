@@ -11,8 +11,8 @@ const Plan = (props) => {
                 <td>{props.plan.tipo}</td>
                 <td>{props.plan.cant_llamadas}</td>
                 <td>{props.plan.cant_sms}</td>
-                <td>{props.plan.cant_gigas}</td>
-                <td>{props.plan.costo}</td>    
+                <td>{props.plan.cant_gigas}GB</td>
+                <td>${props.plan.costo}-</td>    
                 <td><button className="btn btn-danger" onClick={() => { props.EliminarPlan(props.plan.nombre) }}>Eliminar</button></td>
                 <td><button className="btn btn-warning" onClick={() => { navigate(`/planes/agregar/${props.plan.nombre}`) }} >Editar</button></td>
 

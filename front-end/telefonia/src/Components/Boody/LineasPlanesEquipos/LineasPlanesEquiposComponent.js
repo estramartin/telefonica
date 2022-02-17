@@ -33,7 +33,7 @@ const LineasPlanesEquiposComponenet = () => {
 
     }).catch(err => {
 
-      alert(err.response.date.detail)
+      alert( `La Linea no se puede eliminar porque está asociada a un cliente ${err.response.data.detail}`)
     })
   }
 
@@ -79,13 +79,6 @@ const LineasPlanesEquiposComponenet = () => {
     </div>
 
 
-
-
-      {/* <div className="row">
-        <div className="col-5">
-          <Buscador mensaje="Buscar por Fecha" tipo="date" listar={ListarBusqueda} setBusqueda={setBusqueda} busqueda={busqueda} />
-        </div>
-      </div> */}
       <div>
 
         <table className="table table-striped">
